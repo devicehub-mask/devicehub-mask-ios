@@ -1,0 +1,208 @@
+name: Build unsigned IPA
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+    paths-ignore:
+      - ".github/apps.json"
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish_nightly:
+        description: Publish the build to the nightly Release and update the SideStore source.
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  SCHEME: DeviceHubMask
+  ARCHIVE_PATH: archive/DeviceHubMask.xcarchive
+  ARTIFACT_DIRECTORY: release-artifacts
+
+jobs:
+  build:
+    name: Archive and package
+    runs-on: macos-latest
+    outputs:
+      version: ${{ steps.metadata.outputs.version }}
+      version_date: ${{ steps.metadata.outputs.version_date }}
+      size: ${{ steps.metadata.outputs.size }}
+    steps:
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "26.2"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcode-select -p
+          xcodebuild -version
+
+      - name: Run protocol tests
+        run: swift test
+
+      - name: Select app version
+        id: version
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            marketing_version="${GITHUB_REF_NAME#v}"
+          else
+            marketing_version="0.1.${GITHUB_RUN_NUMBER}"
+          fi
+          echo "marketing_version=$marketing_version" >> "$GITHUB_OUTPUT"
+          echo "build_number=$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Archive unsigned app
+        env:
+          MARKETING_VERSION: ${{ steps.version.outputs.marketing_version }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build_number }}
+        run: |
+          mkdir -p "$(dirname "$ARCHIVE_PATH")"
+          xcodebuild archive \
+            -project DeviceHubMask.xcodeproj \
+            -scheme "$SCHEME" \
+            -sdk iphoneos \
+            -arch arm64 \
+            -configuration Release \
+            -archivePath "$ARCHIVE_PATH" \
+            MARKETING_VERSION="$MARKETING_VERSION" \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: Package unsigned IPA
+        run: |
+          mkdir -p "$ARTIFACT_DIRECTORY"
+          scripts/build_unsigned_ipa.sh \
+            "$ARCHIVE_PATH" \
+            "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa"
+          shasum -a 256 "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa" \
+            > "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa.sha256"
+
+      - name: Read artifact metadata
+        id: metadata
+        run: |
+          app_path="$ARCHIVE_PATH/Products/Applications/DeviceHubMask.app"
+          version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app_path/Info.plist")
+          version_date=$(date -u +%Y-%m-%d)
+          size=$(stat -f %z "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa")
+          {
+            echo "version=$version"
+            echo "version_date=$version_date"
+            echo "size=$size"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: DeviceHubMask-unsigned-ipa
+          path: ${{ env.ARTIFACT_DIRECTORY }}
+          if-no-files-found: error
+
+  release:
+    name: Publish tagged Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download IPA artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: DeviceHubMask-unsigned-ipa
+          path: release-assets
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            release-assets/DeviceHubMask.ipa \
+            release-assets/DeviceHubMask.ipa.sha256 \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --generate-notes
+
+  nightly:
+    name: Publish nightly Release and source
+    if: >-
+      (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+      || (github.event_name == 'workflow_dispatch' && inputs.publish_nightly == true && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v4
+
+      - name: Download IPA artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: DeviceHubMask-unsigned-ipa
+          path: release-assets
+
+      - name: Update nightly Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view nightly --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload nightly \
+              release-assets/DeviceHubMask.ipa \
+              release-assets/DeviceHubMask.ipa.sha256 \
+              --repo "$GITHUB_REPOSITORY" \
+              --clobber
+          else
+            gh release create nightly \
+              release-assets/DeviceHubMask.ipa \
+              release-assets/DeviceHubMask.ipa.sha256 \
+              --repo "$GITHUB_REPOSITORY" \
+              --prerelease \
+              --title "DeviceHub Mask Nightly" \
+              --notes "Unsigned IPA generated from the default branch."
+          fi
+
+      - name: Refresh SideStore source metadata
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          VERSION_DATE: ${{ needs.build.outputs.version_date }}
+          IPA_SIZE: ${{ needs.build.outputs.size }}
+        run: |
+          repository_url="https://github.com/$GITHUB_REPOSITORY"
+          source_url="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_REF_NAME/.github/apps.json"
+          download_url="$repository_url/releases/download/nightly/DeviceHubMask.ipa"
+          scripts/update_sidestore_source.sh \
+            .github/apps.json \
+            "$VERSION" \
+            "$VERSION_DATE" \
+            "$IPA_SIZE" \
+            "$download_url" \
+            "$repository_url" \
+            "$source_url"
+
+      - name: Commit SideStore source metadata
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- .github/apps.json; then
+            echo "SideStore source metadata is unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/apps.json
+          git commit -m "chore: update SideStore source [skip ci]"
+          git push origin "HEAD:$GITHUB_REF_NAME"

@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C001 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B001 /* AppModel.swift */; };
+		C002 /* BonjourDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002 /* BonjourDiscovery.swift */; };
+		C003 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B003 /* DesignSystem.swift */; };
+		C004 /* DeviceHubTouchSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B004 /* DeviceHubTouchSurface.swift */; };
+		C005 /* RemoteControlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005 /* RemoteControlSession.swift */; };
+		C006 /* DeviceHubMaskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006 /* DeviceHubMaskApp.swift */; };
+		C007 /* AudioPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007 /* AudioPacket.swift */; };
+		C008 /* ClipboardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008 /* ClipboardEvent.swift */; };
+		C009 /* ConnectionProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B009 /* ConnectionProfile.swift */; };
+		C010 /* DeviceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B010 /* DeviceEvent.swift */; };
+		C011 /* DeviceHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B011 /* DeviceHubAPI.swift */; };
+		C012 /* DeviceHubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012 /* DeviceHubCommand.swift */; };
+		C013 /* DeviceHubError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013 /* DeviceHubError.swift */; };
+		C014 /* DeviceHubSocketEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014 /* DeviceHubSocketEvent.swift */; };
+		C015 /* DeviceHubWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B015 /* DeviceHubWebSocket.swift */; };
+		C016 /* DeviceResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016 /* DeviceResources.swift */; };
+		C017 /* DeviceStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B017 /* DeviceStatusResponse.swift */; };
+		C018 /* DiscoveredServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B018 /* DiscoveredServer.swift */; };
+		C019 /* KeychainConnectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B019 /* KeychainConnectionStore.swift */; };
+		C020 /* LocationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020 /* LocationStatus.swift */; };
+		C021 /* MediaPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021 /* MediaPacket.swift */; };
+		C022 /* MediaPacketParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022 /* MediaPacketParser.swift */; };
+		C023 /* MultiTouchContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023 /* MultiTouchContact.swift */; };
+		C024 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024 /* Orientation.swift */; };
+		C025 /* PairDeviceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B025 /* PairDeviceResult.swift */; };
+		C026 /* RemoteDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B026 /* RemoteDevice.swift */; };
+		C027 /* ServerHello.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027 /* ServerHello.swift */; };
+		C028 /* SessionPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B028 /* SessionPhase.swift */; };
+		C029 /* SocketState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029 /* SocketState.swift */; };
+		C030 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B030 /* StreamMetrics.swift */; };
+		C031 /* TouchGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B031 /* TouchGeometry.swift */; };
+		C032 /* VideoPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032 /* VideoPacket.swift */; };
+		C033 /* DeviceHubAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B033 /* DeviceHubAudioPlayer.swift */; };
+		C034 /* DeviceHubMediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B034 /* DeviceHubMediaController.swift */; };
+		C035 /* DeviceHubVideoSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B035 /* DeviceHubVideoSurface.swift */; };
+		C036 /* DeviceHubVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B036 /* DeviceHubVideoView.swift */; };
+		C037 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B037 /* ConnectionView.swift */; };
+		C038 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038 /* ContentView.swift */; };
+		C039 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B039 /* ControlView.swift */; };
+		C040 /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040 /* DeviceRowView.swift */; };
+		C041 /* ServerDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041 /* ServerDashboardView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A001 /* DeviceHubMask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeviceHubMask.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B001 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/AppModel.swift; sourceTree = SOURCE_ROOT; };
+		B002 /* BonjourDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/BonjourDiscovery.swift; sourceTree = SOURCE_ROOT; };
+		B003 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/DesignSystem.swift; sourceTree = SOURCE_ROOT; };
+		B004 /* DeviceHubTouchSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/DeviceHubTouchSurface.swift; sourceTree = SOURCE_ROOT; };
+		B005 /* RemoteControlSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/RemoteControlSession.swift; sourceTree = SOURCE_ROOT; };
+		B006 /* DeviceHubMaskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/DeviceHubMaskApp.swift; sourceTree = SOURCE_ROOT; };
+		B007 /* AudioPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/AudioPacket.swift; sourceTree = SOURCE_ROOT; };
+		B008 /* ClipboardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/ClipboardEvent.swift; sourceTree = SOURCE_ROOT; };
+		B009 /* ConnectionProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/ConnectionProfile.swift; sourceTree = SOURCE_ROOT; };
+		B010 /* DeviceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceEvent.swift; sourceTree = SOURCE_ROOT; };
+		B011 /* DeviceHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceHubAPI.swift; sourceTree = SOURCE_ROOT; };
+		B012 /* DeviceHubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceHubCommand.swift; sourceTree = SOURCE_ROOT; };
+		B013 /* DeviceHubError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceHubError.swift; sourceTree = SOURCE_ROOT; };
+		B014 /* DeviceHubSocketEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceHubSocketEvent.swift; sourceTree = SOURCE_ROOT; };
+		B015 /* DeviceHubWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceHubWebSocket.swift; sourceTree = SOURCE_ROOT; };
+		B016 /* DeviceResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceResources.swift; sourceTree = SOURCE_ROOT; };
+		B017 /* DeviceStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceStatusResponse.swift; sourceTree = SOURCE_ROOT; };
+		B018 /* DiscoveredServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DiscoveredServer.swift; sourceTree = SOURCE_ROOT; };
+		B019 /* KeychainConnectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/KeychainConnectionStore.swift; sourceTree = SOURCE_ROOT; };
+		B020 /* LocationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/LocationStatus.swift; sourceTree = SOURCE_ROOT; };
+		B021 /* MediaPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/MediaPacket.swift; sourceTree = SOURCE_ROOT; };
+		B022 /* MediaPacketParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/MediaPacketParser.swift; sourceTree = SOURCE_ROOT; };
+		B023 /* MultiTouchContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/MultiTouchContact.swift; sourceTree = SOURCE_ROOT; };
+		B024 /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/Orientation.swift; sourceTree = SOURCE_ROOT; };
+		B025 /* PairDeviceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/PairDeviceResult.swift; sourceTree = SOURCE_ROOT; };
+		B026 /* RemoteDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/RemoteDevice.swift; sourceTree = SOURCE_ROOT; };
+		B027 /* ServerHello.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/ServerHello.swift; sourceTree = SOURCE_ROOT; };
+		B028 /* SessionPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/SessionPhase.swift; sourceTree = SOURCE_ROOT; };
+		B029 /* SocketState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/SocketState.swift; sourceTree = SOURCE_ROOT; };
+		B030 /* StreamMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/StreamMetrics.swift; sourceTree = SOURCE_ROOT; };
+		B031 /* TouchGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/TouchGeometry.swift; sourceTree = SOURCE_ROOT; };
+		B032 /* VideoPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/VideoPacket.swift; sourceTree = SOURCE_ROOT; };
+		B033 /* DeviceHubAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Media/DeviceHubAudioPlayer.swift; sourceTree = SOURCE_ROOT; };
+		B034 /* DeviceHubMediaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Media/DeviceHubMediaController.swift; sourceTree = SOURCE_ROOT; };
+		B035 /* DeviceHubVideoSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Media/DeviceHubVideoSurface.swift; sourceTree = SOURCE_ROOT; };
+		B036 /* DeviceHubVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Media/DeviceHubVideoView.swift; sourceTree = SOURCE_ROOT; };
+		B037 /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ConnectionView.swift; sourceTree = SOURCE_ROOT; };
+		B038 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ContentView.swift; sourceTree = SOURCE_ROOT; };
+		B039 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ControlView.swift; sourceTree = SOURCE_ROOT; };
+		B040 /* DeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/DeviceRowView.swift; sourceTree = SOURCE_ROOT; };
+		B041 /* ServerDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ServerDashboardView.swift; sourceTree = SOURCE_ROOT; };
+		B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DeviceHubMask/Info.plist; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A501 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A401 /* DeviceHubMask */ = {
+			isa = PBXGroup;
+			children = (
+				B006,
+				B001,
+				B002,
+				B003,
+				B004,
+				B005,
+				B007,
+				B008,
+				B009,
+				B010,
+				B011,
+				B012,
+				B013,
+				B014,
+				B015,
+				B016,
+				B017,
+				B018,
+				B019,
+				B020,
+				B021,
+				B022,
+				B023,
+				B024,
+				B025,
+				B026,
+				B027,
+				B028,
+				B029,
+				B030,
+				B031,
+				B032,
+				B033,
+				B034,
+				B035,
+				B036,
+				B037,
+				B038,
+				B039,
+				B040,
+				B041,
+				B100,
+			);
+			name = DeviceHubMask;
+			sourceTree = "<group>";
+		};
+		A402 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A001,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A403 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A401,
+				A402,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A201 /* DeviceHubMask */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A601 /* Build configuration list for PBXNativeTarget "DeviceHubMask" */;
+			buildPhases = (
+				A501,
+				A502,
+				A503,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeviceHubMask;
+			productName = DeviceHubMask;
+			productReference = A001;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A301 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					A201 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+				};
+			};
+			buildConfigurationList = A602 /* Build configuration list for PBXProject "DeviceHubMask" */;
+			compatibilityVersion = "Xcode 16.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A403;
+			productRefGroup = A402;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A201,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A503 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A502 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C006,
+				C001,
+				C002,
+				C003,
+				C004,
+				C005,
+				C007,
+				C008,
+				C009,
+				C010,
+				C011,
+				C012,
+				C013,
+				C014,
+				C015,
+				C016,
+				C017,
+				C018,
+				C019,
+				C020,
+				C021,
+				C022,
+				C023,
+				C024,
+				C025,
+				C026,
+				C027,
+				C028,
+				C029,
+				C030,
+				C031,
+				C032,
+				C033,
+				C034,
+				C035,
+				C036,
+				C037,
+				C038,
+				C039,
+				C040,
+				C041,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A701 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeviceHubMask/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boa.devicehub.mask.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A702 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeviceHubMask/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boa.devicehub.mask.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A703 /* Project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A704 /* Project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A601 /* Build configuration list for PBXNativeTarget "DeviceHubMask" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A701,
+				A702,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A602 /* Build configuration list for PBXProject "DeviceHubMask" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A703,
+				A704,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A301 /* Project object */;
+}

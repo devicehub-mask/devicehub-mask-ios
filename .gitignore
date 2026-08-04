@@ -1,0 +1,17 @@
+.DS_Store
+.build/
+DerivedData/
+build/
+archive/
+release-artifacts/
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.xccheckout
+*.swp
+
+# Local signing and machine-specific files
+*.mobileprovision
+*.p12
+*.cer
+*.pem
