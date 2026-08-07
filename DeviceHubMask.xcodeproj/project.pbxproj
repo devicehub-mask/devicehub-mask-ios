@@ -64,6 +64,8 @@
 		C055 /* SettingsDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B055 /* SettingsDestination.swift */; };
 		C056 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B056 /* SettingsView.swift */; };
 		C057 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B057 /* AboutView.swift */; };
+		C058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B058 /* Assets.xcassets */; };
+		C059 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B059 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		B055 /* SettingsDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/SettingsDestination.swift; sourceTree = SOURCE_ROOT; };
 		B056 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/SettingsView.swift; sourceTree = SOURCE_ROOT; };
 		B057 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/AboutView.swift; sourceTree = SOURCE_ROOT; };
+		B058 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DeviceHubMask/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		B059 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DeviceHubMask/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DeviceHubMask/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -199,6 +203,8 @@
 				B055,
 				B056,
 				B057,
+				B058,
+				B059,
 				B100,
 			);
 			name = DeviceHubMask;
@@ -276,6 +282,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C058,
+				C059,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -378,6 +387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

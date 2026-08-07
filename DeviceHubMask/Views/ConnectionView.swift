@@ -13,7 +13,7 @@ struct ConnectionView: View {
 
                 if let errorMessage = model.errorMessage {
                     Section {
-                        ErrorBanner(message: errorMessage)
+                        ErrorBanner(message: errorMessage, dismiss: model.dismissError)
                     }
                 }
             }

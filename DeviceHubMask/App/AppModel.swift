@@ -94,7 +94,9 @@ final class AppModel {
     }
 
     func refresh() async {
-        guard let api else { return }
+        guard !isBusy, let api else { return }
+        isBusy = true
+        defer { isBusy = false }
         do {
             try await api.refreshDevices()
             status = try await api.status()
@@ -125,6 +127,10 @@ final class AppModel {
         api = nil
         status = nil
         isServerConnected = false
+        errorMessage = nil
+    }
+
+    func dismissError() {
         errorMessage = nil
     }
 

@@ -22,7 +22,7 @@ struct ServerDashboardView: View {
                 }
                 if let errorMessage = model.errorMessage {
                     Section {
-                        ErrorBanner(message: errorMessage)
+                        ErrorBanner(message: errorMessage, dismiss: model.dismissError)
                     }
                 }
             }
@@ -33,9 +33,11 @@ struct ServerDashboardView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Disconnect", systemImage: "rectangle.portrait.and.arrow.right", action: model.disconnectServer)
+                        .disabled(model.isBusy)
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("Refresh", systemImage: "arrow.clockwise", action: { Task { await model.refresh() } })
+                        .disabled(model.isBusy)
                     Button("Settings", systemImage: "gearshape", action: showSettings)
                 }
             }

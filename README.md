@@ -10,6 +10,14 @@ Native iOS client for connecting to a `devicehub-headless` server. The app uses 
 
 The client does not connect to an iPhone over USB. The existing DeviceHub Mask desktop/headless host keeps ownership of CoreDevice, usbmuxd, Developer Disk Image, and device services. This app is the remote iPhone/iPad controller for that host.
 
+## Features
+
+- Bonjour discovery plus manual server entry.
+- Up to 20 recent servers with one-tap reconnect; access tokens remain in the device Keychain.
+- Native HEVC video, PCM audio, multi-touch, hardware buttons, app switching, and rotation.
+- Automatic discovery, automatic reconnect, audio, and stream-metric preferences.
+- An in-app About page with the installed version and build number.
+
 ## Requirements
 
 - Xcode 26.2 or newer.
@@ -79,6 +87,8 @@ scripts/build_unsigned_ipa.sh \
 5. Pair/connect a device, then open its control surface.
 
 The WebSocket client negotiates protocol version 1, `DHV2` HEVC, `DHA1` PCM audio, multi-touch, and hardware-button input. Video ingress is acknowledged with `browser_frame_accepted` to preserve the server's bounded frame pipeline.
+
+Control is protected by a device-scoped lease. The first WebSocket client connected to a device receives control; additional clients remain view-only and take over automatically after the current controller disconnects.
 
 ## Repository layout
 

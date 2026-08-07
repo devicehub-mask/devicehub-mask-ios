@@ -15,12 +15,12 @@ struct DeviceControlPanel: View {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
                 Label(
-                    session.controlGranted ? "Control" : "View Only",
-                    systemImage: session.controlGranted ? "hand.tap.fill" : "eye"
+                    statusTitle,
+                    systemImage: statusSystemImage
                 )
-                .foregroundStyle(session.controlGranted ? .green : .orange)
+                .foregroundStyle(statusColor)
                 .layoutPriority(1)
-                .help(session.controlGranted ? "Control Available" : "Another Client Has Control")
+                .help(statusHelp)
 
                 if let metrics = session.streamMetrics, !isFullscreen, showStreamMetrics {
                     Text("\(metrics.sentFPS, format: .number.precision(.fractionLength(1))) fps / \(metrics.megabitsPerSecond, format: .number.precision(.fractionLength(1))) Mbps")
@@ -53,6 +53,13 @@ struct DeviceControlPanel: View {
             }
             .font(.caption)
 
+            if session.socketState == .connected, !session.controlGranted {
+                Label("Another client has control", systemImage: "person.2")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(DeviceControlAction.allCases) { action in
                     DeviceControlButton(
@@ -71,5 +78,25 @@ struct DeviceControlPanel: View {
                 Color.black
             }
         }
+    }
+
+    private var statusTitle: String {
+        guard session.socketState == .connected else { return "Connecting" }
+        return session.controlGranted ? "Control" : "View Only"
+    }
+
+    private var statusSystemImage: String {
+        guard session.socketState == .connected else { return "network" }
+        return session.controlGranted ? "hand.tap.fill" : "eye"
+    }
+
+    private var statusColor: Color {
+        guard session.socketState == .connected else { return .secondary }
+        return session.controlGranted ? .green : .orange
+    }
+
+    private var statusHelp: String {
+        guard session.socketState == .connected else { return "Connecting to DeviceHub Mask" }
+        return session.controlGranted ? "Control Available" : "Another Client Has Control"
     }
 }

@@ -6,11 +6,11 @@ struct ControlStatusBar: View {
     var body: some View {
         HStack(spacing: 12) {
             Label(
-                session.controlGranted ? "Control" : "View Only",
-                systemImage: session.controlGranted ? "hand.tap.fill" : "eye"
+                statusTitle,
+                systemImage: statusSystemImage
             )
-            .foregroundStyle(session.controlGranted ? .green : .orange)
-            .help(session.controlGranted ? "Control Available" : "Another Client Has Control")
+            .foregroundStyle(statusColor)
+            .help(statusHelp)
 
             Spacer()
 
@@ -28,5 +28,25 @@ struct ControlStatusBar: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
         .background(.black)
+    }
+
+    private var statusTitle: String {
+        guard session.socketState == .connected else { return "Connecting" }
+        return session.controlGranted ? "Control" : "View Only"
+    }
+
+    private var statusSystemImage: String {
+        guard session.socketState == .connected else { return "network" }
+        return session.controlGranted ? "hand.tap.fill" : "eye"
+    }
+
+    private var statusColor: Color {
+        guard session.socketState == .connected else { return .secondary }
+        return session.controlGranted ? .green : .orange
+    }
+
+    private var statusHelp: String {
+        guard session.socketState == .connected else { return "Connecting to DeviceHub Mask" }
+        return session.controlGranted ? "Control Available" : "Another Client Has Control"
     }
 }

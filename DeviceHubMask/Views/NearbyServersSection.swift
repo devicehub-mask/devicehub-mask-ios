@@ -5,7 +5,10 @@ struct NearbyServersSection: View {
 
     var body: some View {
         Section {
-            if model.discovery.servers.isEmpty {
+            if let errorMessage = model.discovery.errorMessage {
+                Label(errorMessage, systemImage: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.red)
+            } else if model.discovery.servers.isEmpty {
                 Label("No Nearby Servers", systemImage: "network.slash")
                     .foregroundStyle(.secondary)
             } else {

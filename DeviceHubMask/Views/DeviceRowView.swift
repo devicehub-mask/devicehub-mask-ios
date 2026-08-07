@@ -38,6 +38,7 @@ struct DeviceRowView: View {
             }
         }
         .padding(.vertical, 6)
+        .disabled(model.isBusy)
     }
 }
 
