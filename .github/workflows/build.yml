@@ -88,8 +88,10 @@ jobs:
           scripts/build_unsigned_ipa.sh \
             "$ARCHIVE_PATH" \
             "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa"
-          shasum -a 256 "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa" \
-            > "$ARTIFACT_DIRECTORY/DeviceHubMask.ipa.sha256"
+          (
+            cd "$ARTIFACT_DIRECTORY"
+            shasum -a 256 DeviceHubMask.ipa > DeviceHubMask.ipa.sha256
+          )
 
       - name: Read artifact metadata
         id: metadata
