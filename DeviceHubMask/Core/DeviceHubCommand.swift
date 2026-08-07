@@ -6,6 +6,7 @@ public enum DeviceHubCommand: Encodable, Sendable {
     case button(name: String)
     case buttonDown(name: String)
     case buttonUp(name: String)
+    case systemAction(action: String)
     case rotate(direction: RotationDirection)
     case videoDemand(active: Bool)
     case audioDemand(active: Bool)
@@ -39,6 +40,9 @@ public enum DeviceHubCommand: Encodable, Sendable {
         case .buttonUp(let name):
             try container.encode("button_up", forKey: .type)
             try container.encode(name, forKey: .name)
+        case .systemAction(let action):
+            try container.encode("system_action", forKey: .type)
+            try container.encode(action, forKey: .action)
         case .rotate(let direction):
             try container.encode("rotate", forKey: .type)
             try container.encode(direction, forKey: .direction)
@@ -67,6 +71,7 @@ public enum DeviceHubCommand: Encodable, Sendable {
         case capabilities
         case contacts
         case name
+        case action
         case direction
         case active
         case sequence

@@ -3,8 +3,12 @@ import SwiftUI
 struct ControlView: View {
     let api: DeviceHubAPI
     let device: RemoteDevice
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
     @State private var session: RemoteControlSession
+    @State private var isFullscreen = false
+    @State private var isControlPanelPresented = true
 
     init(api: DeviceHubAPI, device: RemoteDevice) {
         self.api = api
@@ -14,7 +18,12 @@ struct ControlView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            statusBar
+            ControlStatusBar(session: session)
+                .frame(maxHeight: isFullscreen ? 0 : nil)
+                .opacity(isFullscreen ? 0 : 1)
+                .clipped()
+                .accessibilityHidden(isFullscreen)
+
             ZStack {
                 DeviceHubVideoSurface(controller: session.media, orientation: session.orientation)
                 DeviceHubTouchSurface(
@@ -23,13 +32,14 @@ struct ControlView: View {
                     orientation: session.orientation,
                     onContacts: session.sendTouches
                 )
+
                 if session.socketState != .connected {
                     connectionOverlay
                 }
             }
             .background(.black)
-            .clipShape(.rect(cornerRadius: DeviceHubDesign.cornerRadius))
-            .padding(.horizontal, 12)
+            .clipShape(.rect(cornerRadius: isFullscreen ? 0 : DeviceHubDesign.cornerRadius))
+            .padding(.horizontal, isFullscreen ? 0 : 12)
             .overlay(alignment: .bottomTrailing) {
                 if session.videoFrameCount == 0, session.socketState == .connected {
                     ProgressView()
@@ -37,54 +47,56 @@ struct ControlView: View {
                         .padding(16)
                 }
             }
-            controls
+
+            if !isFullscreen {
+                controlPanel
+            }
         }
         .background(.black)
+        .ignoresSafeArea(.container, edges: isFullscreen ? .all : [])
+        .overlay(alignment: .bottom) {
+            if isFullscreen, isControlPanelPresented {
+                controlPanel
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
+        .overlay(alignment: .topTrailing) {
+            if isFullscreen, !isControlPanelPresented {
+                Button("Show Controls", systemImage: "slider.horizontal.3", action: showControlPanel)
+                    .labelStyle(.iconOnly)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.black.opacity(0.72))
+                    .frame(minWidth: 44, minHeight: 44)
+                    .padding(12)
+                    .help("Show Controls")
+                    .transition(.opacity)
+            }
+        }
         .navigationTitle(device.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbar(isFullscreen ? .hidden : .visible, for: .navigationBar)
+        .statusBarHidden(isFullscreen)
         .onAppear(perform: session.start)
         .onDisappear(perform: session.stop)
-        .onChange(of: scenePhase) { _, phase in
-            switch phase {
-            case .active:
-                session.resumeMedia()
-            case .background:
-                session.pauseVideo()
-            default:
-                break
-            }
-        }
+        .onChange(of: scenePhase, handleScenePhase)
     }
 
-    private var statusBar: some View {
-        HStack(spacing: 12) {
-            Label(
-                session.controlGranted ? "Control" : "View only",
-                systemImage: session.controlGranted ? "hand.tap.fill" : "eye"
-            )
-            .foregroundStyle(session.controlGranted ? .green : .orange)
-            Spacer()
-            if let size = session.videoSize {
-                Text("\(Int(size.width)) × \(Int(size.height))")
-                    .monospacedDigit()
-            }
-            if !session.audioFormat.isEmpty {
-                Label(session.audioFormat, systemImage: "speaker.wave.2")
-            }
-        }
-        .font(.caption)
-        .foregroundStyle(.secondary)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(.black)
+    private var controlPanel: some View {
+        DeviceControlPanel(
+            session: session,
+            isFullscreen: isFullscreen,
+            toggleFullscreen: toggleFullscreen,
+            dismiss: hideControlPanel
+        )
     }
 
     private var connectionOverlay: some View {
         VStack(spacing: 12) {
             ProgressView()
                 .tint(.white)
-            Text(session.socketState == .failed ? "Connection failed" : "Connecting")
+            Text(session.socketState == .failed ? "Connection Failed" : "Connecting")
                 .font(.headline)
             if let message = session.errorMessage {
                 Text(message)
@@ -100,53 +112,41 @@ struct ControlView: View {
         .padding(24)
     }
 
-    private var controls: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 12) {
-                ControlButton("Home", systemImage: "house.fill", enabled: session.controlGranted) {
-                    session.pressButton("home")
-                }
-                ControlButton("Lock", systemImage: "lock.fill", enabled: session.controlGranted) {
-                    session.pressButton("lock")
-                }
-                ControlButton("Rotate left", systemImage: "rotate.left", enabled: session.controlGranted) {
-                    session.rotate(.left)
-                }
-                ControlButton("Rotate right", systemImage: "rotate.right", enabled: session.controlGranted) {
-                    session.rotate(.right)
-                }
-            }
-            if let metrics = session.streamMetrics {
-                Text("\(metrics.sentFPS, format: .number.precision(.fractionLength(1))) fps · \(metrics.megabitsPerSecond, format: .number.precision(.fractionLength(1))) Mbps")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
+    private func toggleFullscreen() {
+        updateInterface {
+            isFullscreen.toggle()
+            isControlPanelPresented = !isFullscreen
         }
-        .padding(12)
-        .background(.black)
-    }
-}
-
-private struct ControlButton: View {
-    let title: String
-    let systemImage: String
-    let enabled: Bool
-    let action: () -> Void
-
-    init(_ title: String, systemImage: String, enabled: Bool, action: @escaping () -> Void) {
-        self.title = title
-        self.systemImage = systemImage
-        self.enabled = enabled
-        self.action = action
     }
 
-    var body: some View {
-        Button(title, systemImage: systemImage, action: action)
-            .labelStyle(.iconOnly)
-            .buttonStyle(.bordered)
-            .tint(.white)
-            .frame(minWidth: 44, minHeight: 44)
-            .disabled(!enabled)
-            .accessibilityLabel(title)
+    private func showControlPanel() {
+        updateInterface {
+            isControlPanelPresented = true
+        }
+    }
+
+    private func hideControlPanel() {
+        updateInterface {
+            isControlPanelPresented = false
+        }
+    }
+
+    private func updateInterface(_ changes: () -> Void) {
+        if reduceMotion {
+            changes()
+        } else {
+            withAnimation(.snappy, changes)
+        }
+    }
+
+    private func handleScenePhase(_ oldPhase: ScenePhase, _ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            session.resumeMedia()
+        case .background:
+            session.pauseVideo()
+        default:
+            break
+        }
     }
 }

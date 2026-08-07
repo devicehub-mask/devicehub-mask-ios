@@ -43,14 +43,13 @@ final class RemoteControlSession {
         socket.send(.multiTouch(contacts: contacts))
     }
 
-    func pressButton(_ name: String) {
-        guard controlGranted else { return }
-        socket.send(.button(name: name))
+    func supports(_ action: DeviceControlAction) -> Bool {
+        controlGranted && serverHello?.input.contains(action.requiredCapability) == true
     }
 
-    func rotate(_ direction: DeviceHubCommand.RotationDirection) {
-        guard controlGranted else { return }
-        socket.send(.rotate(direction: direction))
+    func perform(_ action: DeviceControlAction) {
+        guard supports(action) else { return }
+        socket.send(action.command)
     }
 
     func pauseVideo() {

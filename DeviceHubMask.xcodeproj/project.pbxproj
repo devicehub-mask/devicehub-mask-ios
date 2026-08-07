@@ -48,6 +48,10 @@
 		C039 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B039 /* ControlView.swift */; };
 		C040 /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040 /* DeviceRowView.swift */; };
 		C041 /* ServerDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041 /* ServerDashboardView.swift */; };
+		C042 /* DeviceControlAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B042 /* DeviceControlAction.swift */; };
+		C043 /* DeviceControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043 /* DeviceControlButton.swift */; };
+		C044 /* ControlStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044 /* ControlStatusBar.swift */; };
+		C045 /* DeviceControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B045 /* DeviceControlPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +97,10 @@
 		B039 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ControlView.swift; sourceTree = SOURCE_ROOT; };
 		B040 /* DeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/DeviceRowView.swift; sourceTree = SOURCE_ROOT; };
 		B041 /* ServerDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ServerDashboardView.swift; sourceTree = SOURCE_ROOT; };
+		B042 /* DeviceControlAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/DeviceControlAction.swift; sourceTree = SOURCE_ROOT; };
+		B043 /* DeviceControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/DeviceControlButton.swift; sourceTree = SOURCE_ROOT; };
+		B044 /* ControlStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ControlStatusBar.swift; sourceTree = SOURCE_ROOT; };
+		B045 /* DeviceControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/DeviceControlPanel.swift; sourceTree = SOURCE_ROOT; };
 		B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DeviceHubMask/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -151,6 +159,10 @@
 				B039,
 				B040,
 				B041,
+				B042,
+				B043,
+				B044,
+				B045,
 				B100,
 			);
 			name = DeviceHubMask;
@@ -279,6 +291,10 @@
 				C039,
 				C040,
 				C041,
+				C042,
+				C043,
+				C044,
+				C045,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
