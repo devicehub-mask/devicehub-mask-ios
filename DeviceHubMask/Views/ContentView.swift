@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @Bindable var model: AppModel
+    @AppStorage(AppSettingKey.automaticallyDiscoverServers) private var automaticallyDiscoverServers = true
+    @AppStorage(AppSettingKey.automaticallyConnectLastServer) private var automaticallyConnectLastServer = false
 
     var body: some View {
         Group {
@@ -12,7 +14,14 @@ struct ContentView: View {
             }
         }
         .task {
-            model.startDiscovery()
+            start()
         }
+    }
+
+    private func start() {
+        model.start(
+            automaticallyDiscover: automaticallyDiscoverServers,
+            automaticallyConnect: automaticallyConnectLastServer
+        )
     }
 }

@@ -10,25 +10,59 @@ final class AppModel {
     var isServerConnected = false
     var status: DeviceStatusResponse?
     var errorMessage: String?
+    private(set) var connectionHistory: ConnectionHistory
 
     @ObservationIgnored let discovery = BonjourDiscovery()
 
     private(set) var api: DeviceHubAPI?
     private let keychain = KeychainConnectionStore()
+    private var hasStarted = false
 
     init() {
-        if let profile = keychain.load() {
-            serverInput = profile.origin
-            tokenInput = profile.token
+        do {
+            connectionHistory = try keychain.loadHistory()
+            if let savedServer = connectionHistory.mostRecent {
+                serverInput = savedServer.origin
+                tokenInput = savedServer.token
+            }
+        } catch {
+            connectionHistory = ConnectionHistory()
+            errorMessage = error.localizedDescription
         }
     }
 
-    func startDiscovery() {
-        discovery.start()
+    func start(automaticallyDiscover: Bool, automaticallyConnect: Bool) {
+        guard !hasStarted else { return }
+        hasStarted = true
+        if automaticallyDiscover {
+            discovery.start()
+        }
+        if automaticallyConnect, let savedServer = connectionHistory.mostRecent {
+            connect(to: savedServer)
+        }
+    }
+
+    func setDiscoveryEnabled(_ enabled: Bool) {
+        if enabled {
+            discovery.start()
+        } else {
+            discovery.stop()
+        }
     }
 
     func use(_ server: DiscoveredServer) {
         serverInput = server.origin
+        tokenInput = connectionHistory.servers.first(where: { $0.origin == server.origin })?.token ?? ""
+    }
+
+    func select(_ server: SavedServer) {
+        serverInput = server.origin
+        tokenInput = server.token
+    }
+
+    func connect(to server: SavedServer) {
+        select(server)
+        connect()
     }
 
     func connect() {
@@ -41,7 +75,12 @@ final class AppModel {
                 let profile = try ConnectionProfile(serverInput: serverInput, tokenInput: tokenInput)
                 let client = DeviceHubAPI(profile: profile)
                 let nextStatus = try await client.status()
-                try keychain.save(profile)
+                connectionHistory.record(profile)
+                do {
+                    try keychain.save(connectionHistory)
+                } catch {
+                    errorMessage = "Connected, but the server could not be added to history. \(error.localizedDescription)"
+                }
                 api = client
                 status = nextStatus
                 isServerConnected = true
@@ -87,6 +126,28 @@ final class AppModel {
         status = nil
         isServerConnected = false
         errorMessage = nil
+    }
+
+    func forget(_ server: SavedServer) {
+        let previousHistory = connectionHistory
+        connectionHistory.remove(server)
+        do {
+            try keychain.save(connectionHistory)
+        } catch {
+            connectionHistory = previousHistory
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func clearConnectionHistory() {
+        let previousHistory = connectionHistory
+        connectionHistory.removeAll()
+        do {
+            try keychain.clear()
+        } catch {
+            connectionHistory = previousHistory
+            errorMessage = error.localizedDescription
+        }
     }
 
     private func updateDevice(

@@ -6,6 +6,7 @@ struct ControlView: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage(AppSettingKey.deviceAudioEnabled) private var deviceAudioEnabled = true
     @State private var session: RemoteControlSession
     @State private var isFullscreen = false
     @State private var isControlPanelPresented = true
@@ -78,9 +79,12 @@ struct ControlView: View {
         .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbar(isFullscreen ? .hidden : .visible, for: .navigationBar)
         .statusBarHidden(isFullscreen)
-        .onAppear(perform: session.start)
+        .onAppear(perform: startSession)
         .onDisappear(perform: session.stop)
         .onChange(of: scenePhase, handleScenePhase)
+        .onChange(of: deviceAudioEnabled) { _, enabled in
+            session.setAudioEnabled(enabled)
+        }
     }
 
     private var controlPanel: some View {
@@ -117,6 +121,11 @@ struct ControlView: View {
             isFullscreen.toggle()
             isControlPanelPresented = !isFullscreen
         }
+    }
+
+    private func startSession() {
+        session.setAudioEnabled(deviceAudioEnabled)
+        session.start()
     }
 
     private func showControlPanel() {

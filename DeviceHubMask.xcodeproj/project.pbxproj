@@ -52,6 +52,18 @@
 		C043 /* DeviceControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043 /* DeviceControlButton.swift */; };
 		C044 /* ControlStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044 /* ControlStatusBar.swift */; };
 		C045 /* DeviceControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B045 /* DeviceControlPanel.swift */; };
+		C046 /* SavedServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046 /* SavedServer.swift */; };
+		C047 /* ConnectionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B047 /* ConnectionHistory.swift */; };
+		C048 /* AppSettingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B048 /* AppSettingKey.swift */; };
+		C049 /* AppVersionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B049 /* AppVersionInfo.swift */; };
+		C050 /* ConnectionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050 /* ConnectionFormView.swift */; };
+		C051 /* SavedServersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051 /* SavedServersSection.swift */; };
+		C052 /* SavedServerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B052 /* SavedServerRowView.swift */; };
+		C053 /* NearbyServersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B053 /* NearbyServersSection.swift */; };
+		C054 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B054 /* ErrorBanner.swift */; };
+		C055 /* SettingsDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B055 /* SettingsDestination.swift */; };
+		C056 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B056 /* SettingsView.swift */; };
+		C057 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B057 /* AboutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +113,18 @@
 		B043 /* DeviceControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/DeviceControlButton.swift; sourceTree = SOURCE_ROOT; };
 		B044 /* ControlStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ControlStatusBar.swift; sourceTree = SOURCE_ROOT; };
 		B045 /* DeviceControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/DeviceControlPanel.swift; sourceTree = SOURCE_ROOT; };
+		B046 /* SavedServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/SavedServer.swift; sourceTree = SOURCE_ROOT; };
+		B047 /* ConnectionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Core/ConnectionHistory.swift; sourceTree = SOURCE_ROOT; };
+		B048 /* AppSettingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/AppSettingKey.swift; sourceTree = SOURCE_ROOT; };
+		B049 /* AppVersionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/App/AppVersionInfo.swift; sourceTree = SOURCE_ROOT; };
+		B050 /* ConnectionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ConnectionFormView.swift; sourceTree = SOURCE_ROOT; };
+		B051 /* SavedServersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/SavedServersSection.swift; sourceTree = SOURCE_ROOT; };
+		B052 /* SavedServerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/SavedServerRowView.swift; sourceTree = SOURCE_ROOT; };
+		B053 /* NearbyServersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/NearbyServersSection.swift; sourceTree = SOURCE_ROOT; };
+		B054 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/ErrorBanner.swift; sourceTree = SOURCE_ROOT; };
+		B055 /* SettingsDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/SettingsDestination.swift; sourceTree = SOURCE_ROOT; };
+		B056 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/SettingsView.swift; sourceTree = SOURCE_ROOT; };
+		B057 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHubMask/Views/AboutView.swift; sourceTree = SOURCE_ROOT; };
 		B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DeviceHubMask/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -163,6 +187,18 @@
 				B043,
 				B044,
 				B045,
+				B046,
+				B047,
+				B048,
+				B049,
+				B050,
+				B051,
+				B052,
+				B053,
+				B054,
+				B055,
+				B056,
+				B057,
 				B100,
 			);
 			name = DeviceHubMask;
@@ -295,6 +331,18 @@
 				C043,
 				C044,
 				C045,
+				C046,
+				C047,
+				C048,
+				C049,
+				C050,
+				C051,
+				C052,
+				C053,
+				C054,
+				C055,
+				C056,
+				C057,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

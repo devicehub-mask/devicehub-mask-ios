@@ -29,6 +29,11 @@ final class DeviceHubMediaController {
         audioError = audioPlayer.enqueue(packet)
     }
 
+    func stopAudio() {
+        audioPlayer.reset()
+        audioError = nil
+    }
+
     func reset() {
         videoView?.reset()
         audioPlayer.reset()

@@ -5,6 +5,7 @@ struct DeviceControlPanel: View {
     let isFullscreen: Bool
     let toggleFullscreen: () -> Void
     let dismiss: () -> Void
+    @AppStorage(AppSettingKey.showStreamMetrics) private var showStreamMetrics = true
 
     private let columns = [
         GridItem(.adaptive(minimum: 52, maximum: 64), spacing: 8)
@@ -21,7 +22,7 @@ struct DeviceControlPanel: View {
                 .layoutPriority(1)
                 .help(session.controlGranted ? "Control Available" : "Another Client Has Control")
 
-                if let metrics = session.streamMetrics, !isFullscreen {
+                if let metrics = session.streamMetrics, !isFullscreen, showStreamMetrics {
                     Text("\(metrics.sentFPS, format: .number.precision(.fractionLength(1))) fps / \(metrics.megabitsPerSecond, format: .number.precision(.fractionLength(1))) Mbps")
                         .foregroundStyle(.secondary)
                         .lineLimit(1)

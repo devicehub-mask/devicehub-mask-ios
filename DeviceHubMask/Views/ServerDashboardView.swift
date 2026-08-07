@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ServerDashboardView: View {
     @Bindable var model: AppModel
+    @State private var isShowingSettings = false
 
     var body: some View {
         NavigationStack {
@@ -33,9 +34,13 @@ struct ServerDashboardView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Disconnect", systemImage: "rectangle.portrait.and.arrow.right", action: model.disconnectServer)
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("Refresh", systemImage: "arrow.clockwise", action: { Task { await model.refresh() } })
+                    Button("Settings", systemImage: "gearshape", action: showSettings)
                 }
+            }
+            .sheet(isPresented: $isShowingSettings) {
+                SettingsView(model: model)
             }
             .navigationDestination(for: RemoteDevice.self) { device in
                 if let api = model.api {
@@ -45,5 +50,9 @@ struct ServerDashboardView: View {
                 }
             }
         }
+    }
+
+    private func showSettings() {
+        isShowingSettings = true
     }
 }

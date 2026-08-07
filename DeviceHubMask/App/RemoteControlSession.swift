@@ -18,6 +18,7 @@ final class RemoteControlSession {
     var errorMessage: String?
 
     private let socket: DeviceHubWebSocket
+    private var audioEnabled = true
 
     init(api: DeviceHubAPI, device: RemoteDevice) {
         self.device = device
@@ -56,10 +57,19 @@ final class RemoteControlSession {
         socket.send(.videoDemand(active: false))
     }
 
+    func setAudioEnabled(_ enabled: Bool) {
+        audioEnabled = enabled
+        guard socketState == .connected else { return }
+        socket.send(.audioDemand(active: enabled))
+        if !enabled {
+            media.stopAudio()
+        }
+    }
+
     func resumeMedia() {
         guard socketState == .connected else { return }
         socket.send(.videoDemand(active: true))
-        socket.send(.audioDemand(active: true))
+        socket.send(.audioDemand(active: audioEnabled))
     }
 
     private func handle(_ event: DeviceHubSocketEvent) {
