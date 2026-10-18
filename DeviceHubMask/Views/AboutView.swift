@@ -27,10 +27,10 @@ struct AboutView: View {
             }
 
             Section("Links") {
-                if let projectURL = URL(string: "https://github.com/boa-z/devicehub-mask-ios") {
+                if let projectURL = URL(string: "https://github.com/devicehub-mask/devicehub-mask-ios") {
                     Link("Project on GitHub", destination: projectURL)
                 }
-                if let sourceURL = URL(string: "https://raw.githubusercontent.com/boa-z/devicehub-mask-ios/main/.github/apps.json") {
+                if let sourceURL = URL(string: "https://raw.githubusercontent.com/devicehub-mask/devicehub-mask-ios/main/.github/apps.json") {
                     Link("SideStore Source", destination: sourceURL)
                 }
             }

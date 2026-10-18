@@ -54,7 +54,7 @@ The repository includes a LiveContainer-style GitHub Actions pipeline in `.githu
 Add the following source to SideStore or AltStore:
 
 ```text
-https://raw.githubusercontent.com/boa-z/devicehub-mask-ios/main/.github/apps.json
+https://raw.githubusercontent.com/devicehub-mask/devicehub-mask-ios/main/.github/apps.json
 ```
 
 The feed points to an unsigned IPA. SideStore or AltStore applies the user's signing identity during installation; the GitHub Action does not contain or use a certificate.
